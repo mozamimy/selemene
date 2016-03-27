@@ -8,7 +8,7 @@ searchBox.focus();
 
 var resultArea = document.getElementById('resut_area');
 
-var currentImage = null;
+var currentImageArea = null;
 
 var renderResult = function(resources) {
   while (resultArea.firstChild) {
@@ -41,27 +41,27 @@ var search = function() {
 };
 
 var moveToNextImage = function() {
-  if (currentImage == null) {
-    currentImage = resultArea.firstChild
+  if (currentImageArea == null) {
+    currentImageArea = resultArea.firstChild
   } else {
-    if (currentImage.nextSibling) {
-      currentImage = currentImage.nextSibling;
+    if (currentImageArea.nextSibling) {
+      currentImageArea = currentImageArea.nextSibling;
     }
   }
 
-  location.hash = currentImage.id
+  location.hash = currentImageArea.id
 }
 
 var moveToPreviousImage = function() {
-  if (currentImage == null) {
-    currentImage = resultArea.firstChild
+  if (currentImageArea == null) {
+    currentImageArea = resultArea.firstChild
   } else {
-    if (currentImage.previousSibling) {
-      currentImage = currentImage.previousSibling;
+    if (currentImageArea.previousSibling) {
+      currentImageArea = currentImageArea.previousSibling;
     }
   }
 
-  location.hash = currentImage.id
+  location.hash = currentImageArea.id
 }
 
 searchBox.addEventListener('keydown', function(e) {
@@ -84,6 +84,11 @@ document.addEventListener('keydown', function(e) {
       moveToPreviousImage();
     }
   } else if (e.keyCode == 67) {
-    // TODO: implement copying to the clipboard
+    if (currentImageArea) {
+      var copyPaste = require('copy-paste');
+
+      var textForCopy = '![LGTM](' + currentImageArea.firstChild.src + ')';
+      copyPaste.copy(textForCopy);
+    }
   }
 });
