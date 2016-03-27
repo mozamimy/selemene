@@ -17,10 +17,12 @@
   "license": "MIT",
   "devDependencies": {
     "electron-prebuilt": "x.x",
-    "node-rest-client": "x.x"
+    "node-rest-client": "x.x",
+    "copy-paste": "x.x"
   },
   "peerDependencies": {
     "electron-prebuilt": "x.x",
-    "node-rest-client": "x.x"
+    "node-rest-client": "x.x",
+    "copy-paste": "x.x"
   }
 }

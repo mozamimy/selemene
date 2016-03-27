@@ -1,0 +1,25 @@
+body {
+  background-color: #dcf7f3;
+}
+
+#wrapper {
+  width: 500px;
+  margin: 0 auto;
+}
+
+#search_keyword {
+  display: block;
+  width: 100%;
+  height: 30px;
+  font-size: 27px;
+}
+
+.image_area.current  {
+  background-color: #f5a2a2;
+}
+
+.image_area img {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+}

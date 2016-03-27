@@ -13,12 +13,16 @@ To be written
 - [ ] search animated gif by [Giphy](http://giphy.com/)
 - [ ] copy a string as image reference of markdown to clipboard
 - [ ] stock animated gif
+- [ ] improve detailed behavior
 
 ## TODO
 
 - [ ] ES6
 - [ ] React
 - [ ] Redux
+- [ ] Slim
+- [ ] Sass
+- [ ] Test
 
 ## Lisence
 
