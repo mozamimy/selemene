@@ -19,6 +19,7 @@ To be written
 - [ ] ES6
 - [ ] React
 - [ ] Redux
+- [ ] Test
 
 ## Lisence
 
