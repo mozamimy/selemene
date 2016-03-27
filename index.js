@@ -18,6 +18,7 @@ var renderResult = function(resources) {
   resources.data.forEach(function(resource) {
     var imageArea = document.createElement('div');
     imageArea.id = resource['id'];
+    imageArea.classList.add('image_area');
 
     var image = document.createElement('img');
     image.src = resource['images']['original']['url'];
@@ -30,8 +31,9 @@ var renderResult = function(resources) {
 var search = function() {
   var Client = require('node-rest-client').Client;
   var client = new Client;
-
   var url = search_endpoint + 'q=' + searchBox.value + '&api_key=' + api_key;
+
+  currentImageArea = null;
 
   client.get(url, function(resources, response) {
     if (response.statusCode == 200) {
@@ -45,10 +47,12 @@ var moveToNextImage = function() {
     currentImageArea = resultArea.firstChild
   } else {
     if (currentImageArea.nextSibling) {
+      currentImageArea.classList.remove('current');
       currentImageArea = currentImageArea.nextSibling;
     }
   }
 
+  currentImageArea.classList.add('current');
   location.hash = currentImageArea.id
 }
 
@@ -57,10 +61,12 @@ var moveToPreviousImage = function() {
     currentImageArea = resultArea.firstChild
   } else {
     if (currentImageArea.previousSibling) {
+      currentImageArea.classList.remove('current');
       currentImageArea = currentImageArea.previousSibling;
     }
   }
 
+  currentImageArea.classList.add('current');
   location.hash = currentImageArea.id
 }
 

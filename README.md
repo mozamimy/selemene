@@ -19,6 +19,8 @@ To be written
 - [ ] ES6
 - [ ] React
 - [ ] Redux
+- [ ] Slim
+- [ ] Sass
 - [ ] Test
 
 ## Lisence
