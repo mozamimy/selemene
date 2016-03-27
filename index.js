@@ -31,7 +31,8 @@ var renderResult = function(resources) {
 var search = function() {
   var Client = require('node-rest-client').Client;
   var client = new Client;
-  var url = search_endpoint + 'q=' + searchBox.value + '&api_key=' + api_key;
+  var encodedKeyword = encodeURIComponent(searchBox.value);
+  var url = search_endpoint + 'q=' + encodedKeyword + '&api_key=' + api_key;
 
   currentImageArea = null;
 
@@ -79,7 +80,7 @@ searchBox.addEventListener('keydown', function(e) {
 document.addEventListener('keydown', function(e) {
   if (e.keyCode == 27) {
     searchBox.blur();
-  } else if (e.keyCode == 83) {
+  } else if (e.keyCode == 73) {
     searchBox.focus();
   } else if (e.keyCode == 74) {
     if (document.activeElement != searchBox) {
@@ -89,12 +90,17 @@ document.addEventListener('keydown', function(e) {
     if (document.activeElement != searchBox) {
       moveToPreviousImage();
     }
-  } else if (e.keyCode == 67) {
+  } else if (e.keyCode == 89) {
     if (currentImageArea) {
       var copyPaste = require('copy-paste');
 
       var textForCopy = '![LGTM](' + currentImageArea.firstChild.src + ')';
       copyPaste.copy(textForCopy);
+      document.title = 'Copied | ' + textForCopy;
+
+      setTimeout(function() {
+        document.title = 'Selemene';
+      }, 3000);
     }
   }
 });
