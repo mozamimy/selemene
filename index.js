@@ -8,13 +8,19 @@ searchBox.focus();
 
 var resultArea = document.getElementById('resut_area');
 
+var currentImage = null;
+
 var renderResult = function(resources) {
+  while (resultArea.firstChild) {
+    resultArea.removeChild(resultArea.firstChild);
+  }
+
   resources.data.forEach(function(resource) {
     var imageArea = document.createElement('div');
+    imageArea.id = resource['id'];
 
     var image = document.createElement('img');
     image.src = resource['images']['original']['url'];
-    image.id = resource['id'];
 
     imageArea.appendChild(image);
     resultArea.appendChild(imageArea);
@@ -34,9 +40,50 @@ var search = function() {
   });
 };
 
+var moveToNextImage = function() {
+  if (currentImage == null) {
+    currentImage = resultArea.firstChild
+  } else {
+    if (currentImage.nextSibling) {
+      currentImage = currentImage.nextSibling;
+    }
+  }
+
+  location.hash = currentImage.id
+}
+
+var moveToPreviousImage = function() {
+  if (currentImage == null) {
+    currentImage = resultArea.firstChild
+  } else {
+    if (currentImage.previousSibling) {
+      currentImage = currentImage.previousSibling;
+    }
+  }
+
+  location.hash = currentImage.id
+}
+
 searchBox.addEventListener('keydown', function(e) {
   if (e.keyCode == 13) {
-    e.preventDefault();
     search();
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.keyCode == 27) {
+    searchBox.blur();
+  } else if (e.keyCode == 83) {
+    searchBox.focus();
+  } else if (e.keyCode == 74) {
+    if (document.activeElement != searchBox) {
+      moveToNextImage();
+    }
+  } else if (e.keyCode == 75) {
+    if (document.activeElement != searchBox) {
+      moveToPreviousImage();
+    }
+  } else if (e.keyCode == 67) {
+    // TODO: implement copying to the clipboard
   }
 });
