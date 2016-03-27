@@ -81,7 +81,10 @@ document.addEventListener('keydown', function(e) {
   if (e.keyCode == 27) {
     searchBox.blur();
   } else if (e.keyCode == 73) {
-    searchBox.focus();
+    if (document.activeElement != searchBox) {
+      searchBox.focus();
+      e.preventDefault();
+    }
   } else if (e.keyCode == 74) {
     if (document.activeElement != searchBox) {
       moveToNextImage();
