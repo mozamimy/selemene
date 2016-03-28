@@ -77,24 +77,28 @@ searchBox.addEventListener('keydown', function(e) {
   }
 });
 
+var checkActive = function(domObject) {
+  return (document.activeElement != domObject);
+}
+
 document.addEventListener('keydown', function(e) {
   if (e.keyCode == 27) {
     searchBox.blur();
   } else if (e.keyCode == 73) {
-    if (document.activeElement != searchBox) {
+    if (checkActive(searchBox)) {
       searchBox.focus();
       e.preventDefault();
     }
   } else if (e.keyCode == 74) {
-    if (document.activeElement != searchBox) {
+    if (checkActive(searchBox)) {
       moveToNextImage();
     }
   } else if (e.keyCode == 75) {
-    if (document.activeElement != searchBox) {
+    if (checkActive(searchBox)) {
       moveToPreviousImage();
     }
   } else if (e.keyCode == 89) {
-    if (currentImageArea) {
+    if (currentImageArea && checkActive(searchBox)) {
       var copyPaste = require('copy-paste');
 
       var textForCopy = '![LGTM](' + currentImageArea.firstChild.src + ')';
