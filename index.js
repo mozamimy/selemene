@@ -3,6 +3,14 @@
 const search_endpoint = 'http://api.giphy.com/v1/gifs/search?'
 const api_key = 'dc6zaTOxFJmzC';
 
+const keyCode = {
+  "Esc": 27,
+  "i": 73,
+  "j": 74,
+  "k": 75,
+  "y": 89
+}
+
 var searchBox = document.getElementById('search_keyword');
 searchBox.focus();
 
@@ -77,24 +85,28 @@ searchBox.addEventListener('keydown', function(e) {
   }
 });
 
+var checkActive = function(domObject) {
+  return (document.activeElement != domObject);
+}
+
 document.addEventListener('keydown', function(e) {
-  if (e.keyCode == 27) {
+  if (e.keyCode == keyCode["Esc"]) {
     searchBox.blur();
-  } else if (e.keyCode == 73) {
-    if (document.activeElement != searchBox) {
+  } else if (e.keyCode == keyCode["i"]) {
+    if (checkActive(searchBox)) {
       searchBox.focus();
       e.preventDefault();
     }
-  } else if (e.keyCode == 74) {
-    if (document.activeElement != searchBox) {
+  } else if (e.keyCode == keyCode["j"]) {
+    if (checkActive(searchBox)) {
       moveToNextImage();
     }
-  } else if (e.keyCode == 75) {
-    if (document.activeElement != searchBox) {
+  } else if (e.keyCode == keyCode["k"]) {
+    if (checkActive(searchBox)) {
       moveToPreviousImage();
     }
-  } else if (e.keyCode == 89) {
-    if (currentImageArea) {
+  } else if (e.keyCode == keyCode["y"]) {
+    if (currentImageArea && checkActive(searchBox)) {
       var copyPaste = require('copy-paste');
 
       var textForCopy = '![LGTM](' + currentImageArea.firstChild.src + ')';
