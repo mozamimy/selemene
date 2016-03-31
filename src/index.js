@@ -1,8 +1,5 @@
 'use strict';
 
-const search_endpoint = 'http://api.giphy.com/v1/gifs/search?'
-const api_key = 'dc6zaTOxFJmzC';
-
 const keyCode = {
   "Esc": 27,
   "i": 73,
@@ -17,39 +14,6 @@ searchBox.focus();
 var resultArea = document.getElementById('resut_area');
 
 var currentImageArea = null;
-
-var renderResult = function(resources) {
-  while (resultArea.firstChild) {
-    resultArea.removeChild(resultArea.firstChild);
-  }
-
-  resources.data.forEach(function(resource) {
-    var imageArea = document.createElement('div');
-    imageArea.id = resource['id'];
-    imageArea.classList.add('image_area');
-
-    var image = document.createElement('img');
-    image.src = resource['images']['original']['url'];
-
-    imageArea.appendChild(image);
-    resultArea.appendChild(imageArea);
-  });
-}
-
-var search = function() {
-  var Client = require('node-rest-client').Client;
-  var client = new Client;
-  var encodedKeyword = encodeURIComponent(searchBox.value);
-  var url = search_endpoint + 'q=' + encodedKeyword + '&api_key=' + api_key;
-
-  currentImageArea = null;
-
-  client.get(url, function(resources, response) {
-    if (response.statusCode == 200) {
-      renderResult(resources);
-    }
-  });
-};
 
 var moveToNextImage = function() {
   if (currentImageArea == null) {
@@ -81,7 +45,10 @@ var moveToPreviousImage = function() {
 
 searchBox.addEventListener('keydown', function(e) {
   if (e.keyCode == 13) {
-    search();
+    currentImageArea = null;
+
+    var giphy = new Giphy;
+    giphy.search(searchBox.value, resultArea);
   }
 });
 
