@@ -16,7 +16,6 @@ class Giphy {
     let client = new RestClient;
     let encodedKeyword = encodeURIComponent(keyword);
     let url = Giphy.API_ENDPOINT + 'q=' + encodedKeyword + '&api_key=' + Giphy.API_KEY;
-    console.log(url);
 
     client.get(url, (resources, response) => {
       if (response.statusCode == 200) {
@@ -28,7 +27,7 @@ class Giphy {
   _renderResult(resources, resultArea) {
     this._clear(resultArea);
 
-    resources.data.forEach(resource => {
+    resources.data.forEach(resource () => {
       let imageArea = document.createElement('div');
       imageArea.id = resource['id'];
       imageArea.classList.add('image_area');
