@@ -25,7 +25,7 @@ Your inventory of animated gif for LGTM.
 
 - [ ] App icon
 - [ ] Build automation
-- [ ] ES6
+- [x] ES6
 - [ ] React
 - [ ] Redux
 - [ ] Slim
