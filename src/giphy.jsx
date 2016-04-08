@@ -27,7 +27,7 @@ class Giphy {
   _renderResult(resources, resultArea) {
     this._clear(resultArea);
 
-    resources.data.forEach(resource () => {
+    resources.data.forEach((resource) => {
       let imageArea = document.createElement('div');
       imageArea.id = resource['id'];
       imageArea.classList.add('image_area');
