@@ -21,6 +21,7 @@
     "gulp": "x.x",
     "gulp-babel": "x.x",
     "gulp-load-plugins": "x.x",
+    "gulp-sass": "x.x",
     "babel-preset-es2015": "x.x",
     "node-rest-client": "x.x",
     "copy-paste": "x.x"
