@@ -29,7 +29,7 @@ Your inventory of animated gif for LGTM.
 - [ ] React
 - [ ] Redux
 - [ ] Slim
-- [ ] Sass
+- [x] Sass
 - [ ] Test & Travis CI
 
 ## Lisence
