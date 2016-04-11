@@ -55,7 +55,9 @@ class SelemeneContainer {
         this.currentImageArea = null;
 
         let giphy = new Giphy;
-        giphy.search(this.searchTextBox.value, this.resultArea);
+        giphy.search(this.searchTextBox.value, this.resultArea).then((resources) => {
+          this._renderResult(resources);
+        });
       }
     });
   }
@@ -90,5 +92,27 @@ class SelemeneContainer {
 
   _checkActive(domObject) {
     return (document.activeElement != domObject);
+  }
+
+  _renderResult(resources) {
+    this._clear(this.resultArea);
+
+    resources.data.forEach((resource) => {
+      let imageArea = document.createElement('div');
+      imageArea.id = resource['id'];
+      imageArea.classList.add('image_area');
+
+      let image = document.createElement('img');
+      image.src = resource['images']['original']['url'];
+
+      imageArea.appendChild(image);
+      this.resultArea.appendChild(imageArea);
+    });
+  }
+
+  _clear(resultArea) {
+    while (resultArea.firstChild) {
+      resultArea.removeChild(resultArea.firstChild);
+    }
   }
 }
