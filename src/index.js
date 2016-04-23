@@ -1,3 +1,3 @@
 'use strict';
 
-var container = new SelemeneContainer
+var container = new SelemeneContainer;

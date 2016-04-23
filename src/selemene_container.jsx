@@ -2,25 +2,17 @@
 
 import * as CopyPaste from 'copy-paste';
 
-class SelemeneContainer {
-  static get KEY_CODES() {
-    return {
-      "Esc": 27,
-      "Enter": 13,
-      "i": 73,
-      "j": 74,
-      "k": 75,
-      "y": 89
-    };
-  }
-
+class SelemeneContainer extends Container {
   constructor() {
+    super();
+
     this.searchTextBox = document.getElementById('search_keyword');
     this.resultArea = document.getElementById('resut_area');
     this.currentImageArea = null;
 
     this.searchTextBox.focus();
 
+    // TODO: Refactor to stop using raw keycodes
     document.addEventListener('keydown', (e) => {
       if (e.keyCode == SelemeneContainer.KEY_CODES["Esc"]) {
         this.searchTextBox.blur();
@@ -44,8 +36,16 @@ class SelemeneContainer {
           document.title = 'Copied | ' + textForCopy;
 
           setTimeout(() => {
-            document.title = 'Selemene';
+            document.title = 'Selemene; Search';
           }, 3000);
+        }
+      } else if (e.keyCode == SelemeneContainer.KEY_CODES["l"]) {
+        if (this._checkActive(this.searchTextBox)) {
+          document.location.href = 'inventory.html';
+        }
+      } else if (e.keyCode == SelemeneContainer.KEY_CODES["f"]) {
+        if (this._checkActive(this.searchTextBox)) {
+          this._addToInventory(this.currentImageArea.id, this.currentImageArea.childNodes[0]);
         }
       }
     });
@@ -114,5 +114,15 @@ class SelemeneContainer {
     while (resultArea.firstChild) {
       resultArea.removeChild(resultArea.firstChild);
     }
+  }
+
+  _addToInventory(giphy_id, node) {
+    localStorage.setItem(giphy_id, node.src);
+
+    document.title = `Added to inventory, ${giphy_id}`;
+
+    setTimeout(() => {
+      document.title = 'Selemene; Search';
+    }, 3000);
   }
 }
