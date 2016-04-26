@@ -1,57 +1,32 @@
 'use strict';
 
-import * as CopyPaste from 'copy-paste';
-
-class SelemeneContainer {
-  static get KEY_CODES() {
-    return {
-      "Esc": 27,
-      "Enter": 13,
-      "i": 73,
-      "j": 74,
-      "k": 75,
-      "y": 89
-    };
-  }
-
+class SelemeneContainer extends Container {
   constructor() {
-    this.searchTextBox = document.getElementById('search_keyword');
-    this.resultArea = document.getElementById('resut_area');
-    this.currentImageArea = null;
+    super();
 
+    this.searchTextBox = document.getElementById('search_keyword');
     this.searchTextBox.focus();
 
+    // TODO: Refactor to stop using raw keycodes
     document.addEventListener('keydown', (e) => {
-      if (e.keyCode == SelemeneContainer.KEY_CODES["Esc"]) {
+      if (e.keyCode == Container.KEY_CODES["Esc"]) {
         this.searchTextBox.blur();
-      } else if (e.keyCode == SelemeneContainer.KEY_CODES["i"]) {
+      } else if (e.keyCode == Container.KEY_CODES['i'] && this._checkActive(this.searchTextBox)) {
+        this.searchTextBox.focus();
+        e.preventDefault();
+      } else if (e.keyCode == Container.KEY_CODES['f']) {
         if (this._checkActive(this.searchTextBox)) {
-          this.searchTextBox.focus();
-          e.preventDefault();
+          this._addToInventory(this.currentImageArea.id, this.currentImageArea.childNodes[0]);
         }
-      } else if (e.keyCode == SelemeneContainer.KEY_CODES["j"]) {
+      } else if (e.keyCode == Container.KEY_CODES['l']) {
         if (this._checkActive(this.searchTextBox)) {
-          this._moveToNextImage();
-        }
-      } else if (e.keyCode == SelemeneContainer.KEY_CODES["k"]) {
-        if (this._checkActive(this.searchTextBox)) {
-          this._moveToPreviousImage();
-        }
-      } else if (e.keyCode == SelemeneContainer.KEY_CODES["y"]) {
-        if (this.currentImageArea && this._checkActive(this.searchTextBox)) {
-          let textForCopy = '![LGTM](' + this.currentImageArea.firstChild.src + ')';
-          CopyPaste.copy(textForCopy);
-          document.title = 'Copied | ' + textForCopy;
-
-          setTimeout(() => {
-            document.title = 'Selemene';
-          }, 3000);
+          document.location.href = 'inventory.html';
         }
       }
     });
 
     this.searchTextBox.addEventListener('keydown', (e) => {
-      if (e.keyCode == SelemeneContainer.KEY_CODES['Enter']) {
+      if (e.keyCode == Container.KEY_CODES['Enter']) {
         this.currentImageArea = null;
 
         let giphy = new Giphy;
@@ -62,51 +37,11 @@ class SelemeneContainer {
     });
   }
 
-  _moveToNextImage() {
-    if (this.currentImageArea == null) {
-      this.currentImageArea = this.resultArea.firstChild
-    } else {
-      if (this.currentImageArea.nextSibling) {
-        this.currentImageArea.classList.remove('current');
-        this.currentImageArea = this.currentImageArea.nextSibling;
-      }
-    }
-
-    this.currentImageArea.classList.add('current');
-    location.hash = this.currentImageArea.id;
-  }
-
-  _moveToPreviousImage() {
-    if (this.currentImageArea == null) {
-      this.currentImageArea = this.resultArea.firstChild
-    } else {
-      if (this.currentImageArea.previousSibling) {
-        this.currentImageArea.classList.remove('current');
-        this.currentImageArea = this.currentImageArea.previousSibling;
-      }
-    }
-
-    this.currentImageArea.classList.add('current');
-    location.hash = this.currentImageArea.id;
-  }
-
-  _checkActive(domObject) {
-    return (document.activeElement != domObject);
-  }
-
   _renderResult(resources) {
     this._clear(this.resultArea);
 
     resources.data.forEach((resource) => {
-      let imageArea = document.createElement('div');
-      imageArea.id = resource['id'];
-      imageArea.classList.add('image_area');
-
-      let image = document.createElement('img');
-      image.src = resource['images']['original']['url'];
-
-      imageArea.appendChild(image);
-      this.resultArea.appendChild(imageArea);
+      this._renderSingleImageArea(resource['id'], resource['images']['original']['url']);
     });
   }
 
@@ -114,5 +49,19 @@ class SelemeneContainer {
     while (resultArea.firstChild) {
       resultArea.removeChild(resultArea.firstChild);
     }
+  }
+
+  _addToInventory(giphy_id, node) {
+    localStorage.setItem(giphy_id, node.src);
+
+    document.title = `Added to the inventory, ${giphy_id}`;
+
+    setTimeout(() => {
+      document.title = this._title();
+    }, 3000);
+  }
+
+  _title() {
+    return 'Selemene; Search';
   }
 }
