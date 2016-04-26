@@ -18,6 +18,11 @@
   "devDependencies": {
     "electron-prebuilt": "x.x",
     "electron-packager": "x.x",
+    "gulp": "x.x",
+    "gulp-babel": "x.x",
+    "gulp-load-plugins": "x.x",
+    "gulp-sass": "x.x",
+    "babel-preset-es2015": "x.x",
     "node-rest-client": "x.x",
     "copy-paste": "x.x"
   },
@@ -27,6 +32,7 @@
     "copy-paste": "x.x"
   },
   "scripts": {
-    "build": "electron-packager . selemene --platform=darwin,win32,linux --arch=x64"
+    "build": "electron-packager . selemene --platform=darwin,win32,linux --arch=x64",
+    "compile": "gulp compile"
   }
 }
