@@ -6,10 +6,12 @@ Your inventory of animated gif for LGTM.
 
 ## Key bindings
 
-- i: focus the textbox for searching
+- i: Focus the textbox for searching
 - j: Move to next gif
 - k: Move to previous gif
 - y: Copy a string for markdown documents
+- l: Move to the inventory view
+- h: Move to the search view
 - Esc: Unfocus textbox
 - Enter: Submit
 
@@ -17,7 +19,7 @@ Your inventory of animated gif for LGTM.
 
 - [x] search animated gif by [Giphy](http://giphy.com/)
 - [x] copy a string as image reference of markdown to clipboard
-- [ ] stock animated gif
+- [x] stock animated gif
 - [ ] improve detailed behavior
 - [ ] improve visual design
 
@@ -28,7 +30,6 @@ Your inventory of animated gif for LGTM.
 - [x] ES6
 - [ ] React
 - [ ] Redux
-- [ ] Slim
 - [x] Sass
 - [ ] Test & Travis CI
 
