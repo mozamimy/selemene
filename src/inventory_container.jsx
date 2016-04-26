@@ -17,15 +17,10 @@ class InventoryContainer extends Container {
 
   _renderImagesArea() {
     for (let i = 0; i < localStorage.length; i++) {
-      let imageArea = document.createElement('div');
-      imageArea.id = localStorage.key(i);
-      imageArea.classList.add('image_area');
+      const id = localStorage.key(i);
+      const src = localStorage.getItem(localStorage.key(i));
 
-      let image = document.createElement('img');
-      image.src = localStorage.getItem(localStorage.key(i));
-
-      imageArea.appendChild(image);
-      this.resultArea.appendChild(imageArea);
+      this._renderSingleImageArea(id, src);
     }
   }
 }

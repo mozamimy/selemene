@@ -98,15 +98,7 @@ class SelemeneContainer extends Container {
     this._clear(this.resultArea);
 
     resources.data.forEach((resource) => {
-      let imageArea = document.createElement('div');
-      imageArea.id = resource['id'];
-      imageArea.classList.add('image_area');
-
-      let image = document.createElement('img');
-      image.src = resource['images']['original']['url'];
-
-      imageArea.appendChild(image);
-      this.resultArea.appendChild(imageArea);
+      this._renderSingleImageArea(resource['id'], resource['images']['original']['url']);
     });
   }
 
