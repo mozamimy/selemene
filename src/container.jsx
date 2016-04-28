@@ -1,6 +1,6 @@
 'use strict';
 
-import * as CopyPaste from 'copy-paste';
+import { clipboard as Clipboard } from 'electron';
 
 class Container {
   static get KEY_CODES() {
@@ -34,8 +34,8 @@ class Container {
         }
       } else if (e.keyCode == Container.KEY_CODES["y"]) {
         if (this.currentImageArea && this._checkActive(this.searchTextBox)) {
-          let textForCopy = '![LGTM](' + this.currentImageArea.firstChild.src + ')';
-          CopyPaste.copy(textForCopy);
+          const textForCopy = '![LGTM](' + this.currentImageArea.firstChild.src + ')';
+          Clipboard.writeText(textForCopy);
           document.title = 'Copied | ' + textForCopy;
 
           setTimeout(() => {

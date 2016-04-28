@@ -28,8 +28,7 @@
   },
   "peerDependencies": {
     "electron-prebuilt": "x.x",
-    "node-rest-client": "x.x",
-    "copy-paste": "x.x"
+    "node-rest-client": "x.x"
   },
   "scripts": {
     "build": "electron-packager . selemene --platform=darwin,win32,linux --arch=x64",
